@@ -26,12 +26,9 @@ def vm_list(config):
     table.add_column("Virtual Machine", justify="center")
     table.add_column("State", justify="center")
     for vm in vms:
-        console.print(len(vm))
-        # if len(vm==2):
-        #     table.add_row(*vm)
-        # else:
-        #     table.add_row(*vm[:3])
+        if len(vm)==2:
+            table.add_row(*vm)
+        else:
+            table.add_row(*vm[:3])
     with console.pager():
         console.print(table)
-
-
