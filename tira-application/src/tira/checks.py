@@ -26,11 +26,7 @@ def actions_check_permissions(roles):
     def decorator(func):
         @wraps(func)
         def func_wrapper(request, *args, **kwargs):
-
-            if 'vm_id' in kwargs:
-                role = auth.get_role(request, user_id=auth.get_user_id(request), vm_id=kwargs["vm_id"])
-            else:
-                role = auth.get_role(request, user_id=auth.get_user_id(request))
+            role = auth.get_role(request, user_id=auth.get_user_id(request), vm_id=kwargs.get("vm_id", None))
 
             if role not in roles and "any" not in roles:
                 raise PermissionDenied

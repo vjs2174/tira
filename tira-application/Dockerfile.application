@@ -41,8 +41,9 @@ RUN chown -R tira:tira /usr/local && \
 
 # 4. make the sources
 WORKDIR /tira/tira-application/src
-#RUN python3 -m pip install --no-cache-dir -r requirements.txt
+
 RUN python3 manage.py collectstatic
+RUN python3 manage.py test --settings=django_admin.test_settings
 
 RUN apk del .build-deps
 
