@@ -1,0 +1,26 @@
+{% extends 'tira/base.html' %}
+{% load static %}
+{% block title %}TIRA Error{% endblock %}
+{% block description %}TIRA Error{% endblock %}
+{% block navbar %}{% include "tira/navbar.html" with nav_active='users' %}{% endblock %}
+
+{% block content %}
+<main class="uk-section uk-section-default">
+    <div class="uk-container">
+        <h1 class="uk-heading-divider">An error occured when trying to access the page. <span class="uk-text-muted">{{ status_code }} - {{ status_desc }}</span></h1>
+        <div>
+            <p>{{ message }}</p>
+        </div>
+        <ul class="uk-list uk-list-square">
+            <li><a href="{% url 'tira:index' %}">Go back to main page</a></li>
+            {% if not include_navigation %}
+            <li><a href="/categories">Ask a question in our forums</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</main>
+
+{% if not include_navigation %}
+<script src="https://assets.webis.de/js/thirdparty/jquery/jquery.slim.min.js"></script>
+{% endif %}
+{% endblock %}

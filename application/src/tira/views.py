@@ -254,3 +254,34 @@ def user_detail(request, context, user_id):
 @add_context
 def request_vm(request, context):
     return render(request, 'tira/request_vm.html', context)
+
+@add_context
+def bad_request(request, context, exception):
+    context['status_code'] = HTTPStatus.BAD_REQUEST.value
+    context['status_desc'] = HTTPStatus.BAD_REQUEST.name
+
+    return render(request, 'tira/error.html', context, status=400)
+
+# not used because we display 403 codes as if they were 404 codes
+@add_context
+def forbidden(request, context, exception):
+    context['status_code'] = HTTPStatus.FORBIDDEN.value
+    context['status_desc'] = HTTPStatus.FORBIDDEN.name
+
+    return render(request, 'tira/error.html', context, status=403)
+
+@add_context
+def not_found(request, context, exception):
+    context['status_code'] = HTTPStatus.NOT_FOUND.value
+    context['status_desc'] = HTTPStatus.NOT_FOUND.name
+    context['message'] = f'Sorry! We can\'t find {request.path}. Please check the URL you were trying to visit or consider doing one of the following.'
+    
+    return render(request, 'tira/error.html', context, status=404)
+
+@add_context
+def server_error(request, context):
+    context['status_code'] = HTTPStatus.INTERNAL_SERVER_ERROR.value
+    context['status_desc'] = HTTPStatus.INTERNAL_SERVER_ERROR.name
+    context['message'] = 'If this occurs regularly you may want to contact an admin.'
+
+    return render(request, 'tira/error.html', context, status=500)

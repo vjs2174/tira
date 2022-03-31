@@ -18,7 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+handler400 = 'tira.views.bad_request'
+handler403 = 'tira.views.not_found'
+handler404 = 'tira.views.not_found'
+handler500 = 'tira.views.server_error'
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     path('', include('tira.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
